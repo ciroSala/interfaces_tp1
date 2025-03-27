@@ -4,6 +4,9 @@ body {
     justify-content: center;
     align-items: center;
 }
+section {
+    margin: 5%;
+}
 #boton {
 background-color: aquamarine;
 }
