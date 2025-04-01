@@ -13,25 +13,42 @@ document.addEventListener("DOMContentLoaded", function() {
     * @type {CanvasRenderingContext2D}
     */
     const CTX = CANVAS.getContext("2d");
+
+
+
     
     //4 - Pintar una región rectangular de un color utilizando el Contexto de HTML5.
-    const imageData = CTX.createImageData(400,200);
+    const imageData = CTX.createImageData(300,255);
 
-    function setPixel(imageData, x, y){
-        let index = (x+y*imageData.height) * 4;
-        imageData.data[index+0] = 255;
-        imageData.data[index+1] = 0;
-        imageData.data[index+2] = 0;
-        imageData.data[index+3] = 255;
-    }
+    // function setPixel(imageData, x, y){
+    //     let index = (x+y*imageData.height) * 4;
+    //     imageData.data[index+0] = 255;
+    //     imageData.data[index+1] = 0;
+    //     imageData.data[index+2] = 0;
+    //     imageData.data[index+3] = 255;
+    // }
 
-    for(let y=0; y<imageData.height; y++){
-        for(let x=0; x<imageData.width; x++){
-            setPixel(imageData,x,y);    
+    // for(let y=0; y<imageData.height; y++){
+    //     for(let x=0; x<imageData.width; x++){
+    //         setPixel(imageData,x,y);    
+    //     }
+    // }
+
+    degradienteImagen(imageData);
+    CTX.putImageData(imageData, 0,0);
+
+    //6 Especificar la función para pintar un cuadrado utilizando un gradiente de la siguiente forma:
+    function degradienteImagen(imageData){
+        for(let x = 0; x<imageData.width;x++){
+            for(let y = 0; y<imageData.height; y++){
+                let index = (x+y*imageData.width) * 4;
+                imageData.data[index+0] = y;
+                imageData.data[index+1] = y;
+                imageData.data[index+2] = y;
+                imageData.data[index+3] = 255;
+            }
         }
     }
-
-    CTX.putImageData(imageData, 200,200);
 
     BOTONCOLOR.addEventListener("click", cambiarFondo);
     BOTON.addEventListener("click", borrarInputs);
