@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const BOTONCOLOR = document.getElementById("botonColor");
     const BOTON = document.getElementById("botonInputs");
     let inputs = document.getElementsByClassName("input");
-    
+
     /**
     * @type {HTMLCanvasElement}
     */
@@ -12,10 +12,26 @@ document.addEventListener("DOMContentLoaded", function() {
     /**
     * @type {CanvasRenderingContext2D}
     */
-    let ctx = CANVAS.getContext("2d");
-    ctx.beginPath();
-    ctx.fillStyle = 'green';
-    ctx.fillRect(0, 0, 300, 100);
+    const CTX = CANVAS.getContext("2d");
+    
+    //4 - Pintar una región rectangular de un color utilizando el Contexto de HTML5.
+    const imageData = CTX.createImageData(400,200);
+
+    function setPixel(imageData, x, y){
+        let index = (x+y*imageData.height) * 4;
+        imageData.data[index+0] = 255;
+        imageData.data[index+1] = 0;
+        imageData.data[index+2] = 0;
+        imageData.data[index+3] = 255;
+    }
+
+    for(let y=0; y<imageData.height; y++){
+        for(let x=0; x<imageData.width; x++){
+            setPixel(imageData,x,y);    
+        }
+    }
+
+    CTX.putImageData(imageData, 200,200);
 
     BOTONCOLOR.addEventListener("click", cambiarFondo);
     BOTON.addEventListener("click", borrarInputs);
@@ -43,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function borrarInputs() {
         for(let i = 0; i < inputs.length; i++){
-            console.log(inputs[i]);
             inputs[i].value = "";
         }
     }
